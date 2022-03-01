@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import colors from 'colors'
 import connectDB from './config/db.js'
 import userRoutes from './routes/userRoutes.js'
+import transactionRoutes from './routes/transactionRoutes.js'
 
 dotenv.config()
 
@@ -17,6 +18,7 @@ app.get('/', (req, res)=>{
 })
 
 app.use('/api/users', userRoutes)
+app.use('/api/transactions', transactionRoutes)
 
 const PORT = process.env.PORT || 5000
 
