@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Form, Button, Row, Col} from 'react-bootstrap'
+import {Form, Button} from 'react-bootstrap'
 import {register} from '../actions/userActions.js'
 
 const RegisterScreen = ({location, history}) => {
@@ -8,7 +8,6 @@ const RegisterScreen = ({location, history}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [age, setAge] = useState(0)
-  //const [walletAddress, setWalletAddress] = useState('')
 
   const dispatch = useDispatch()
 
@@ -17,10 +16,19 @@ const RegisterScreen = ({location, history}) => {
 
   const walletAddress = "123456789"
 
+  function generateWalletAddress(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+   return result;
+  }
+
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(register(name, email, password, age, walletAddress))
-    window.location.href='/'
+    dispatch(register(name, email, password, age, generateWalletAddress(16)))
   }
 
   return (

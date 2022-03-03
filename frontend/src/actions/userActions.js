@@ -27,7 +27,8 @@ export const register = (name, email, password, age, walletAddress) => async(dis
             payload: data
         })
 
-        localStorage.setItem('userInfo', JSON.stringify(data))
+        window.location.href='/'
+        
     } catch (error) {
         dispatch({
             type: REGISTER_USER_FAIL,

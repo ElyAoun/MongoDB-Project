@@ -1,18 +1,14 @@
 import React, {useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Form, Button, Row, Col} from 'react-bootstrap'
+import {Form, Button} from 'react-bootstrap'
 import {makeTransactionAction} from '../actions/transactionActions.js'
 import Select from 'react-select'
 
 const MakeTransactionScreen = ({location, history}) => {
+  const [sender, setSender] = useState('')
   const [receiver, setReceiver] = useState('')
   const [amount, setAmount] = useState(0)
   const [transactionType, setTransactionType] = useState('')
-
-  const userInfo = localStorage.getItem('userInfo')
-  const userInfoData = JSON.parse(userInfo)
-
-  console.log(userInfoData)
   
   const dispatch = useDispatch()
 
@@ -23,8 +19,7 @@ const MakeTransactionScreen = ({location, history}) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(makeTransactionAction(userInfoData._id, receiver, currentDate, amount, transactionType))
-    window.location.href='/'
+    dispatch(makeTransactionAction(sender, receiver, currentDate, amount, transactionType))
   }
 
 
@@ -39,6 +34,14 @@ const MakeTransactionScreen = ({location, history}) => {
 
   return (
     <Form onSubmit={submitHandler}>
+      <Form.Group className="mb-3" controlId="sender">
+        <Form.Label>Sender</Form.Label>
+        <Form.Control 
+                  type="text" 
+                  placeholder="Select Receiver"
+                  value={sender}
+                  onChange={(e)=>setSender(e.target.value)} />
+      </Form.Group>
       <Form.Group className="mb-3" controlId="receiver">
         <Form.Label>Receiver</Form.Label>
         <Form.Control 

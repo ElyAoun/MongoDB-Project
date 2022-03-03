@@ -17,6 +17,18 @@ const makeTransaction = asyncHandler(async (req, res) => {
     res.status(201).json(createdTransaction)
 })
 
+
+// @description Get All Transactions
+// @Route GET /api/transactions
+// @access Private
+const getTransactions = asyncHandler(async (req, res) => {
+    const transactions = await Transaction.find({}).sort({transaction_date: -1})
+    res.json(transactions)
+})
+
+
 export {
-    makeTransaction
+    makeTransaction,
+    getTransactions
 }
+
